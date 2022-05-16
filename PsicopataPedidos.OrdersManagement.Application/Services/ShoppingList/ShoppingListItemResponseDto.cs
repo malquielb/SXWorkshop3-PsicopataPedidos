@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PsicopataPedidos.OrdersManagement.Application.Services.ShoppingList
 {
-    public class ShoppingListItemResponse
+    public class ShoppingListItemResponseDto
     {
         public int Id { get; set; }
         public int ProductId { get; set; }

@@ -9,8 +9,8 @@ namespace PsicopataPedidos.OrdersManagement.Application.Contracts.Services
 {
     public interface IShoppingListService
     {
-        Task<ShoppingListItemResponse> AddShoppingListItem(ShoppingListItemRequest shoppingListItemRequest);
+        Task<ShoppingListItemResponseDto> AddShoppingListItem(ShoppingListItemRequestDto shoppingListItemRequest);
         Task RemoveShoppingListItem(int id);
-        Task<IReadOnlyCollection<ShoppingListItemResponse>> GetShoppingListItems();
+        Task<IReadOnlyCollection<ShoppingListItemResponseDto>> GetShoppingListItems();
     }
 }

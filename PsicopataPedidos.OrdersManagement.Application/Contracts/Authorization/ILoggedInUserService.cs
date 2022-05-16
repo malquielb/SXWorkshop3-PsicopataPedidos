@@ -9,5 +9,6 @@ namespace PsicopataPedidos.OrdersManagement.Application.Contracts.Authorization
     public interface ILoggedInUserService
     {
         public int UserId { get; }
+        public string UserName { get; }
     }
 }

@@ -6,13 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PsicopataPedidos.OrdersManagement.Application.Services.ShoppingList
+namespace PsicopataPedidos.OrdersManagement.Application.Services.Orders
 {
-    public class ShoppingListServiceMappingProfile : Profile
+    public class OrderServiceMappingProfile : Profile
     {
-        public ShoppingListServiceMappingProfile()
+        public OrderServiceMappingProfile()
         {
-            CreateMap<ShoppingListItemRequestDto, ShoppingListItem>();
+            CreateMap<Order, OrderResponseDto>()
+                .ForMember(order => order.UserName, opt => opt.Ignore());
             CreateMap<ShoppingListItem, ShoppingListItemResponseDto>();
             CreateMap<Product, ListProductResponseDto>();
         }
