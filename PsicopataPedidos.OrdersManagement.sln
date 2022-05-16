@@ -11,13 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{7AFF49A6-6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{508D5262-16CF-411F-88EA-18825AF72915}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsicopataPedidos.OrdersManagement.Persistence", "PsicopataPedidos.OrdersManagement.Persistence\PsicopataPedidos.OrdersManagement.Persistence.csproj", "{AA1D5152-7072-413D-8C1F-B5F4836B2C26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsicopataPedidos.OrdersManagement.Persistence", "PsicopataPedidos.OrdersManagement.Persistence\PsicopataPedidos.OrdersManagement.Persistence.csproj", "{AA1D5152-7072-413D-8C1F-B5F4836B2C26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsicopataPedidos.OrdersManagement.Domain", "PsicopataPedidos.OrdersManagement.Domain\PsicopataPedidos.OrdersManagement.Domain.csproj", "{15733EF8-C4B5-41DD-AD43-3197CE8FE287}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsicopataPedidos.OrdersManagement.Domain", "PsicopataPedidos.OrdersManagement.Domain\PsicopataPedidos.OrdersManagement.Domain.csproj", "{15733EF8-C4B5-41DD-AD43-3197CE8FE287}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsicopataPedidos.OrdersManagement.Application", "PsicopataPedidos.OrdersManagement.Application\PsicopataPedidos.OrdersManagement.Application.csproj", "{9A68A92F-EEB0-4C9F-A975-29353024448C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsicopataPedidos.OrdersManagement.Application", "PsicopataPedidos.OrdersManagement.Application\PsicopataPedidos.OrdersManagement.Application.csproj", "{9A68A92F-EEB0-4C9F-A975-29353024448C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsicopataPedidos.OrdersManagement.Api", "PsicopataPedidos.OrdersManagement.Api\PsicopataPedidos.OrdersManagement.Api.csproj", "{41764EA4-AA51-43C9-8DC3-0CFD2FA4F2CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsicopataPedidos.OrdersManagement.Api", "PsicopataPedidos.OrdersManagement.Api\PsicopataPedidos.OrdersManagement.Api.csproj", "{41764EA4-AA51-43C9-8DC3-0CFD2FA4F2CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
