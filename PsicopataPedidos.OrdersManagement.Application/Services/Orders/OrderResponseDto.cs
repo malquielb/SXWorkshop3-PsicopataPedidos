@@ -11,7 +11,7 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Orders
         public int Id { get; set; }
         public decimal Total { get; set; }
         public DateTimeOffset Date { get; set; }
-        public ICollection<ShoppingListItemResponseDto> ShoppingList { get; set; }
+        public ICollection<OrderShoppingListItemResponseDto> ShoppingList { get; set; }
         public string UserName { get; set; }
     }
 }

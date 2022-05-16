@@ -9,7 +9,7 @@ namespace PsicopataPedidos.OrdersManagement.Application.Contracts.Services
 {
     public interface ICategoryService
     {
-        Task<IReadOnlyCollection<CategoryResponseDto>> ListAllCategories();
+        Task<List<CategoryResponseDto>> ListAllCategories();
         Task<CategoryResponseDto> GetCategoryById(int id);
         Task<CategoryResponseDto> AddCategory(CategoryRequestDto categoryResquest);
         Task<CategoryResponseDto> UpdateCategory(int id, CategoryRequestDto categoryRequest);

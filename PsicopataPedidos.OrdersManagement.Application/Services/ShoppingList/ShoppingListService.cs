@@ -46,7 +46,7 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.ShoppingList
             return _mapper.Map<ShoppingListItemResponseDto>(result);
         }
 
-        public async Task<IReadOnlyCollection<ShoppingListItemResponseDto>> GetShoppingListItems()
+        public async Task<List<ShoppingListItemResponseDto>> GetShoppingListItems()
         {
             var itemList = await _listRepository.GetListForUser(_loggedInUserService.UserId);
             return _mapper.Map<List<ShoppingListItemResponseDto>>(itemList);

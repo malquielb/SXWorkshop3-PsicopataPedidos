@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PsicopataPedidos.OrdersManagement.Application.Contracts.Services;
 
 namespace PsicopataPedidos.OrdersManagement.Api.Controllers
@@ -14,7 +15,7 @@ namespace PsicopataPedidos.OrdersManagement.Api.Controllers
            _userService = userService;
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("{id}"), Authorize(Roles = "Admin")]
         public async Task<ActionResult> FundWallet(int id, [FromBody] decimal amount)
         {
             await _userService.FundClientWallet(id, amount);

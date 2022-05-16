@@ -16,20 +16,23 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Orders
         private readonly IOrderRepository _orderRepository;
         private readonly IShoppingListRepository _shoppingListRepository;
         private readonly IBaseRepository<User> _userRepository;
+        private readonly IBaseRepository<Product> _productRepository;
         private readonly IMapper _mapper;
         private readonly ILoggedInUserService _loggedInUserService;
 
         public OrderService(IOrderRepository orderRepository, IShoppingListRepository shoppingListRepository, 
-            IBaseRepository<User> userRepository, IMapper mapper, ILoggedInUserService loggedInUserService)
+            IBaseRepository<User> userRepository, IBaseRepository<Product> productRepository, 
+            IMapper mapper, ILoggedInUserService loggedInUserService)
         {
             _orderRepository = orderRepository;
             _shoppingListRepository = shoppingListRepository;
             _userRepository = userRepository;
+            _productRepository = productRepository;
             _mapper = mapper;
             _loggedInUserService = loggedInUserService;
         }
 
-        public async Task<IReadOnlyCollection<OrderResponseDto>> GetAllOrders()
+        public async Task<List<OrderResponseDto>> GetAllOrders()
         {
             var orders = await _orderRepository.ListAllAsync();
             var result = new List<OrderResponseDto>();
@@ -47,7 +50,7 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Orders
             return result;
         }
 
-        public async Task<IReadOnlyCollection<OrderResponseDto>> GetOrdersForCurrentUser()
+        public async Task<List<OrderResponseDto>> GetOrdersForCurrentUser()
         {
             var orders = await _orderRepository.GetOrdersForUser(_loggedInUserService.UserId);
             var result = _mapper.Map<List<OrderResponseDto>>(orders);
@@ -60,7 +63,7 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Orders
         public async Task<OrderResponseDto> MakeOrder()
         {
             var shoppingList = await _shoppingListRepository.GetListForUser(_loggedInUserService.UserId);
-            var itemsToOrder = shoppingList.Where(item => item.OrderId == null);
+            var itemsToOrder = shoppingList.Where(item => item.OrderId == null).ToList();
 
             if (itemsToOrder.Count() < 1)
                 throw new ApplicationException("Shopping List is empty.");
@@ -71,7 +74,16 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Orders
 
             foreach (var item in itemsToOrder)
             {
-                order.Total += item.Product.Price * item.Quantity;
+                if (item.Product.Stock >= item.Quantity)
+                {
+                    order.Total += item.Product.Price * item.Quantity;
+                    item.Product.Stock -= item.Quantity;
+                    await _productRepository.UpdateAsync(item.Product);
+                }
+                else
+                {
+                    throw new ApplicationException($"{item.Product.Name} have not enought stock for your order.");
+                }
             }
 
             order.ShoppingList = itemsToOrder.ToList();

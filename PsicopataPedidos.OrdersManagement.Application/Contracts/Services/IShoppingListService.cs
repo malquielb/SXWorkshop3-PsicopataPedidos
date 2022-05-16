@@ -11,6 +11,6 @@ namespace PsicopataPedidos.OrdersManagement.Application.Contracts.Services
     {
         Task<ShoppingListItemResponseDto> AddShoppingListItem(ShoppingListItemRequestDto shoppingListItemRequest);
         Task RemoveShoppingListItem(int id);
-        Task<IReadOnlyCollection<ShoppingListItemResponseDto>> GetShoppingListItems();
+        Task<List<ShoppingListItemResponseDto>> GetShoppingListItems();
     }
 }

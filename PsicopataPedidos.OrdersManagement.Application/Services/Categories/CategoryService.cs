@@ -50,7 +50,7 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Categories
             return _mapper.Map<CategoryResponseDto>(category);
         }
 
-        public async Task<IReadOnlyCollection<CategoryResponseDto>> ListAllCategories()
+        public async Task<List<CategoryResponseDto>> ListAllCategories()
         {
             var categoryList = await _categoryRepository.ListAllAsync();
             var result = _mapper.Map<List<CategoryResponseDto>>(categoryList);

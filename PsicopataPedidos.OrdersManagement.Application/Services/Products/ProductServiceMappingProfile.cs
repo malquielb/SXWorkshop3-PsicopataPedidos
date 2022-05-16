@@ -15,7 +15,7 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Products
             CreateMap<Product, ProductResponseDto>();
             CreateMap<Category, ProductCategoryDto>();
             CreateMap<ProductRequestDto, Product>()
-                .ForSourceMember(p => p.Categories, opt => opt.DoNotValidate());
+                .ForMember(p => p.Categories, opt => opt.Ignore());
         }
     }
 }

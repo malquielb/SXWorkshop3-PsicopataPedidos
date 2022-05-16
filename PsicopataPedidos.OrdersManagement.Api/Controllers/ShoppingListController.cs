@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PsicopataPedidos.OrdersManagement.Application.Contracts.Services;
 using PsicopataPedidos.OrdersManagement.Application.Services.ShoppingList;
 
@@ -17,21 +18,21 @@ namespace PsicopataPedidos.OrdersManagement.Api.Controllers
             _shoppingListService = shoppingListService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IReadOnlyCollection<ShoppingListItemResponseDto>>> GetAll()
+        [HttpGet, Authorize(Roles = "Client")]
+        public async Task<ActionResult<List<ShoppingListItemResponseDto>>> GetAll()
         {
             var result = await _shoppingListService.GetShoppingListItems();
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<ShoppingListItemResponseDto>> Update([FromBody] ShoppingListItemRequestDto shoppingListItem)
+        [HttpPost, Authorize(Roles = "Client")]
+        public async Task<ActionResult<ShoppingListItemResponseDto>> Add([FromBody] ShoppingListItemRequestDto shoppingListItem)
         {
             var result = await _shoppingListService.AddShoppingListItem(shoppingListItem);
             return StatusCode(StatusCodes.Status201Created, result);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "Client")]
         public async Task<ActionResult> Delete(int id)
         {
             await _shoppingListService.RemoveShoppingListItem(id);

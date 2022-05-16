@@ -14,8 +14,8 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Orders
         {
             CreateMap<Order, OrderResponseDto>()
                 .ForMember(order => order.UserName, opt => opt.Ignore());
-            CreateMap<ShoppingListItem, ShoppingListItemResponseDto>();
-            CreateMap<Product, ListProductResponseDto>();
+            CreateMap<ShoppingListItem, OrderShoppingListItemResponseDto>();
+            CreateMap<Product, OrderListProductResponseDto>();
         }
     }
 }

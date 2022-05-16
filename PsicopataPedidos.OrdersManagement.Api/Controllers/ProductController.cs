@@ -16,35 +16,35 @@ namespace PsicopataPedidos.OrdersManagement.Api.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IReadOnlyCollection<ProductResponseDto>>> GetAll()
+        [HttpGet, Authorize(Roles = "Admin,Client")]
+        public async Task<ActionResult<List<ProductResponseDto>>> GetAll()
         {
             var result = await _productService.ListAllProducts();
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize(Roles = "Admin,Client")]
         public async Task<ActionResult<ProductResponseDto>> GetById(int id)
         {
             var result = await _productService.GetProductById(id);
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Admin")]
         public async Task<ActionResult<ProductResponseDto>> Add(ProductRequestDto product)
         {
             var result = await _productService.AddProduct(product);
             return StatusCode(StatusCodes.Status201Created, result);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize(Roles = "Admin")]
         public async Task<ActionResult<ProductResponseDto>> Update(int id, ProductRequestDto product)
         {
             var result = await _productService.UpdateProduct(id, product);
             return Ok(result);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             await _productService.DeleteProduct(id);

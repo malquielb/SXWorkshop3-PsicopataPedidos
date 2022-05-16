@@ -23,7 +23,8 @@ namespace PsicopataPedidos.OrdersManagement.Identity.Services
 
             if (user.IsAdmin)
                 claims.Add(new Claim(ClaimTypes.Role, "Admin"));
-            claims.Add(new Claim(ClaimTypes.Role, "Client"));
+            else
+                claims.Add(new Claim(ClaimTypes.Role, "Client"));
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
                 configuration.GetSection("JwtSettings:Secret").Value));

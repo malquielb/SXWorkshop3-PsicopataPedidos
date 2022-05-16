@@ -26,5 +26,16 @@ namespace PsicopataPedidos.OrdersManagement.Persistence.Repositories
             return await _context.ShoppingListItems.Where(i => i.UserId == userId)
                     .ToListAsync();
         }
+
+        public override async Task<ShoppingListItem> GetByIdAsync(int id)
+        {
+            return await _context.Set<ShoppingListItem>().Include(s => s.Product)
+                .FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+        public override async Task<IReadOnlyCollection<ShoppingListItem>> ListAllAsync()
+        {
+            return await _context.Set<ShoppingListItem>().ToListAsync();
+        }
     }
 }

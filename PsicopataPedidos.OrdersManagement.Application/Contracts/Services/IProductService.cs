@@ -10,7 +10,7 @@ namespace PsicopataPedidos.OrdersManagement.Application.Contracts.Services
 {
     public interface IProductService
     {
-        Task<IReadOnlyCollection<ProductResponseDto>> ListAllProducts();
+        Task<List<ProductResponseDto>> ListAllProducts();
         Task<ProductResponseDto> GetProductById(int id);
         Task<ProductResponseDto> AddProduct(ProductRequestDto productRequest);
         Task<ProductResponseDto> UpdateProduct(int id, ProductRequestDto productRequest);

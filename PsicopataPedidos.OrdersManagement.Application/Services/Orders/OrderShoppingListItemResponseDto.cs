@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace PsicopataPedidos.OrdersManagement.Application.Services.Orders
 {
-    public class ShoppingListItemResponseDto
+    public class OrderShoppingListItemResponseDto
     {
-        public ListProductResponseDto Product { get; set; }
+        public OrderListProductResponseDto Product { get; set; }
         public int Quantity { get; set; }
     }
 }

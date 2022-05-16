@@ -9,8 +9,8 @@ namespace PsicopataPedidos.OrdersManagement.Application.Contracts.Services
 {
     public interface IOrderService
     {
-        Task<IReadOnlyCollection<OrderResponseDto>> GetAllOrders();
-        Task<IReadOnlyCollection<OrderResponseDto>> GetOrdersForCurrentUser();
+        Task<List<OrderResponseDto>> GetAllOrders();
+        Task<List<OrderResponseDto>> GetOrdersForCurrentUser();
         Task<OrderResponseDto> MakeOrder();
     }
 }

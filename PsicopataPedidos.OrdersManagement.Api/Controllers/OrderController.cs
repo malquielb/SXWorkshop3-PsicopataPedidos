@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PsicopataPedidos.OrdersManagement.Application.Contracts.Services;
 using PsicopataPedidos.OrdersManagement.Application.Services.Orders;
 
@@ -18,24 +19,24 @@ namespace PsicopataPedidos.OrdersManagement.Api.Controllers
         }
 
         [HttpGet]
-        [Route("all")]
-        public async Task<ActionResult<IReadOnlyCollection<OrderResponseDto>>> GetAllOrders()
+        [Route("all"), Authorize(Roles = "Admin")]
+        public async Task<ActionResult<List<OrderResponseDto>>> GetAllOrders()
         {
             var result = await _orderService.GetAllOrders();
             return Ok(result);
         }
 
         [HttpGet]
-        [Route("user")]
-        public async Task<ActionResult<IReadOnlyCollection<OrderResponseDto>>> GetOrdersForCurrentUser()
+        [Route("user"), Authorize(Roles = "Client")]
+        public async Task<ActionResult<List<OrderResponseDto>>> GetOrdersForCurrentUser()
         {
             var result = await _orderService.GetOrdersForCurrentUser();
             return Ok(result);
         }
 
         [HttpGet]
-        [Route("make")]
-        public async Task<ActionResult<IReadOnlyCollection<OrderResponseDto>>> MakeOrder()
+        [Route("make"), Authorize(Roles = "Client")]
+        public async Task<ActionResult<OrderResponseDto>> MakeOrder()
         {
             var result = await _orderService.MakeOrder();
             return Ok(result);

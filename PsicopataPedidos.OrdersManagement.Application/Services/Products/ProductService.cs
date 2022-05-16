@@ -64,7 +64,7 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Products
             return _mapper.Map<ProductResponseDto>(product);
         }
 
-        public async Task<IReadOnlyCollection<ProductResponseDto>> ListAllProducts()
+        public async Task<List<ProductResponseDto>> ListAllProducts()
         {
             var productList = await _productRepository.ListAllAsync();
             var result = _mapper.Map<List<ProductResponseDto>>(productList);

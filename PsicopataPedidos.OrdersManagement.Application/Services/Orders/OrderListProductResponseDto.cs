@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PsicopataPedidos.OrdersManagement.Application.Services.Orders
 {
-    public class ListProductResponseDto
+    public class OrderListProductResponseDto
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
