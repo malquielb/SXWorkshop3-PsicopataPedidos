@@ -93,11 +93,15 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Orders
             var result = await _orderRepository.AddAsync(order);
 
             foreach (var item in result.ShoppingList)
+            {
                 item.OrderId = result.Id;
+                await _shoppingListRepository.UpdateAsync(item);
+            }
 
-            result = await _orderRepository.UpdateAsync(result);
+            var response = _mapper.Map<OrderResponseDto>(result);
+            response.UserName = _loggedInUserService.UserName;
 
-            return _mapper.Map<OrderResponseDto>(result);
+            return response;
         }
     }
 }

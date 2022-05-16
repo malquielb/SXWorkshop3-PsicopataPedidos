@@ -17,25 +17,21 @@ namespace PsicopataPedidos.OrdersManagement.Persistence.Repositories
 
         public async Task<ShoppingListItem> GetItemForUser(int itemId, int userId)
         {
-            return await _context.ShoppingListItems.Where(i => i.UserId == userId)
+            return await _context.ShoppingListItems.Where(i => i.UserId == userId && i.OrderId == null)
+                    .Include(i => i.Product)
                     .FirstOrDefaultAsync(i => i.Id == itemId);
         }
 
         public async Task<IReadOnlyCollection<ShoppingListItem>> GetListForUser(int userId)
         {
-            return await _context.ShoppingListItems.Where(i => i.UserId == userId)
+            return await _context.ShoppingListItems.Where(i => i.UserId == userId && i.OrderId == null)
+                    .Include(i => i.Product)
                     .ToListAsync();
-        }
-
-        public override async Task<ShoppingListItem> GetByIdAsync(int id)
-        {
-            return await _context.Set<ShoppingListItem>().Include(s => s.Product)
-                .FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public override async Task<IReadOnlyCollection<ShoppingListItem>> ListAllAsync()
         {
-            return await _context.Set<ShoppingListItem>().ToListAsync();
+            return await _context.Set<ShoppingListItem>().Include(i => i.Product).ToListAsync();
         }
     }
 }

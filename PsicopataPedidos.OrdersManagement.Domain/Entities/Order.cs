@@ -13,6 +13,5 @@ namespace PsicopataPedidos.OrdersManagement.Domain.Entities
         public DateTimeOffset Date { get; set; }
         public ICollection<ShoppingListItem> ShoppingList { get; set; }
         public int UserId { get; set; }
-        public string UserName { get; set; }
     }
 }

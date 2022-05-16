@@ -94,10 +94,6 @@ namespace PsicopataPedidos.OrdersManagement.Persistence
             modelBuilder.Entity<Order>()
                 .Property(o => o.UserId)
                 .IsRequired();
-
-            modelBuilder.Entity<Order>()
-                .Property(o => o.UserName)
-                .IsRequired();
         }
     }
 }
