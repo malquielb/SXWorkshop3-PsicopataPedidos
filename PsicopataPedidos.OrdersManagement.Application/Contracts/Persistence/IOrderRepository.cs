@@ -10,6 +10,5 @@ namespace PsicopataPedidos.OrdersManagement.Application.Contracts.Persistence
     public interface IOrderRepository : IBaseRepository<Order>
     {
         Task<IReadOnlyCollection<Order>> GetOrdersForUser(int userId);
-        Task<Order> MakerOrder();
     }
 }

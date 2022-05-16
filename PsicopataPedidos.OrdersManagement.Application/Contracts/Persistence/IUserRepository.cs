@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace PsicopataPedidos.OrdersManagement.Application.Contracts.Persistence
 {
-    public interface IUserRepository : IBaseRepository<User>
+    public interface IUserRepository
     {
-        Task FundClientWallet(decimal amount);
+        Task<User> GetByIdAsync(int id);
+        Task<User> GetByEmailAsync(string email);
+        Task<User> UpdateAsync(User user);
+        Task<User> CreateAsync(User user);
     }
 }

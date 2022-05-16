@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PsicopataPedidos.OrdersManagement.Application\PsicopataPedidos.OrdersManagement.Application.csproj" />
-    <ProjectReference Include="..\PsicopataPedidos.OrdersManagement.Domain\PsicopataPedidos.OrdersManagement.Domain.csproj" />
   </ItemGroup>
 
 </Project>

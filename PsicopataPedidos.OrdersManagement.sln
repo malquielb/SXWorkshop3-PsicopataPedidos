@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsicopataPedidos.OrdersMana
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsicopataPedidos.OrdersManagement.Api", "PsicopataPedidos.OrdersManagement.Api\PsicopataPedidos.OrdersManagement.Api.csproj", "{41764EA4-AA51-43C9-8DC3-0CFD2FA4F2CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsicopataPedidos.OrdersManagement.Identity", "PsicopataPedidos.OrdersManagement.Identity\PsicopataPedidos.OrdersManagement.Identity.csproj", "{609D30A7-3263-4C59-AF82-CE3773C4F872}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{41764EA4-AA51-43C9-8DC3-0CFD2FA4F2CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41764EA4-AA51-43C9-8DC3-0CFD2FA4F2CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41764EA4-AA51-43C9-8DC3-0CFD2FA4F2CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{609D30A7-3263-4C59-AF82-CE3773C4F872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{609D30A7-3263-4C59-AF82-CE3773C4F872}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{609D30A7-3263-4C59-AF82-CE3773C4F872}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{609D30A7-3263-4C59-AF82-CE3773C4F872}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{15733EF8-C4B5-41DD-AD43-3197CE8FE287} = {7AFF49A6-6478-4D11-9EC6-25997F2A1382}
 		{9A68A92F-EEB0-4C9F-A975-29353024448C} = {7AFF49A6-6478-4D11-9EC6-25997F2A1382}
 		{41764EA4-AA51-43C9-8DC3-0CFD2FA4F2CA} = {2BD28336-5CFF-484B-A2A1-CD4CED6D12EC}
+		{609D30A7-3263-4C59-AF82-CE3773C4F872} = {508D5262-16CF-411F-88EA-18825AF72915}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {779FE29C-F1FE-4723-ACE9-82525255227D}

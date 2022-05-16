@@ -1,6 +1,13 @@
+using PsicopataPedidos.OrdersManagement.Application;
+using PsicopataPedidos.OrdersManagement.Identity;
+using PsicopataPedidos.OrdersManagement.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddApplicationServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
