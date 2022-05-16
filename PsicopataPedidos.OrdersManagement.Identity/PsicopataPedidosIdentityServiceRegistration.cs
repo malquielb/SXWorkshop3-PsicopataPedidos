@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PsicopataPedidos.OrdersManagement.Application.Contracts.Authorization;
 using PsicopataPedidos.OrdersManagement.Application.Contracts.Identity;
 using PsicopataPedidos.OrdersManagement.Application.Contracts.Persistence;
 using PsicopataPedidos.OrdersManagement.Identity.Repositories;
@@ -24,6 +26,10 @@ namespace PsicopataPedidos.OrdersManagement.Identity
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddScoped<ILoggedInUserService, LoggedInUserService>();
 
             return services;
         }

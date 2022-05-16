@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PsicopataPedidos.OrdersManagement.Application.Contracts.Services;
 using PsicopataPedidos.OrdersManagement.Application.Services.Categories;
 
