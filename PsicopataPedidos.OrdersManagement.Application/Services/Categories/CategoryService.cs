@@ -13,19 +13,32 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Categories
 {
     public class CategoryService : ICategoryService
     {
-        private readonly IBaseRepository<Category> _categoryRepository;
+        private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
+        private readonly CategoryRequestDtoValidator _validator;
 
-        public CategoryService(IBaseRepository<Category> categoryRepository, IMapper mapper)
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
         {
             _categoryRepository = categoryRepository;
             _mapper = mapper;
+            _validator = new CategoryRequestDtoValidator();
         }
 
         public async Task<CategoryResponseDto> AddCategory(CategoryRequestDto categoryRequest)
         {
-            var category = _mapper.Map<Category>(categoryRequest);
-            var result  = await _categoryRepository.AddAsync(category);
+            var validationResult = await _validator.ValidateAsync(categoryRequest);
+           
+            if (validationResult.Errors.Count > 0)
+                throw new ValidationException(validationResult);
+
+            var category = await _categoryRepository.GetCategoryByName(categoryRequest.Name);
+
+            if (category != null)
+                throw new ApplicationException($"Category '{category.Name}' already exists.");
+
+            var newCategory = _mapper.Map<Category>(categoryRequest);
+
+            var result  = await _categoryRepository.AddAsync(newCategory);
 
             return _mapper.Map<CategoryResponseDto>(result);
         }
@@ -60,6 +73,11 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Categories
 
         public async Task<CategoryResponseDto> UpdateCategory(int id, CategoryRequestDto categoryRequest)
         {
+            var validationResult = await _validator.ValidateAsync(categoryRequest);
+
+            if (validationResult.Errors.Count > 0)
+                throw new ValidationException(validationResult);
+
             var category = await _categoryRepository.GetByIdAsync(id);
 
             if (category == null)

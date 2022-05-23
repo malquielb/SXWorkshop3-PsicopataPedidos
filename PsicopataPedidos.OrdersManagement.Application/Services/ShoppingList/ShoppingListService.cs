@@ -18,6 +18,7 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.ShoppingList
         private readonly IBaseRepository<Product> _productRepository;
         private readonly IMapper _mapper;
         private readonly ILoggedInUserService _loggedInUserService;
+        private readonly ShoppingListItemRequestDtoValidator _validator;
 
         public ShoppingListService(IShoppingListRepository listRepository, IBaseRepository<Product> productRepository, 
             IMapper mapper, ILoggedInUserService loggedInUserService)
@@ -26,10 +27,15 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.ShoppingList
             _productRepository = productRepository;
             _mapper = mapper;
             _loggedInUserService = loggedInUserService;
+            _validator = new ShoppingListItemRequestDtoValidator();
         }
 
         public async Task<ShoppingListItemResponseDto> AddShoppingListItem(ShoppingListItemRequestDto shoppingListItemRequest)
         {
+            var validationResult = await _validator.ValidateAsync(shoppingListItemRequest);
+
+            if (validationResult.Errors.Any())
+                throw new ValidationException(validationResult);
 
             var shoppingListItem = _mapper.Map<ShoppingListItem>(shoppingListItemRequest);
             

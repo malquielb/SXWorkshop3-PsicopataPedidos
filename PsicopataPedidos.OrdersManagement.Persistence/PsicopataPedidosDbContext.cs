@@ -24,10 +24,14 @@ namespace PsicopataPedidos.OrdersManagement.Persistence
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PsicopataPedidosDbContext).Assembly);
 
             modelBuilder.Entity<Category>()
-                .HasKey("Id");
+                .HasKey(c => c.Id);
 
             modelBuilder.Entity<Category>()
-                .Property("Name")
+                .HasIndex(c => c.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<Category>()
+                .Property(c => c.Name)
                 .IsRequired()
                 .HasMaxLength(100);
 
@@ -35,32 +39,32 @@ namespace PsicopataPedidos.OrdersManagement.Persistence
                 .HasMany(c => c.Products).WithMany(p => p.Categories);
 
             modelBuilder.Entity<Product>()
-                .HasKey("Id");
+                .HasKey(p => p.Id);
 
             modelBuilder.Entity<Product>()
-               .Property("Name")
+               .Property(p => p.Name)
                .IsRequired()
                .HasMaxLength(100);
 
             modelBuilder.Entity<Product>()
-               .Property("Description")
+               .Property(p => p.Description)
                .IsRequired()
                .HasMaxLength(250);
 
             modelBuilder.Entity<Product>()
-               .Property("Price")
+               .Property(p => p.Price)
                .HasColumnType("decimal(19,4)")
                .IsRequired();
 
             modelBuilder.Entity<Product>()
-               .Property("Stock")
+               .Property(p => p.Stock)
                .IsRequired();
 
             modelBuilder.Entity<Product>()
                .HasMany(p => p.Categories).WithMany(c => c.Products);
 
             modelBuilder.Entity<ShoppingListItem>()
-                .HasKey("Id");
+                .HasKey(s => s.Id);
 
             modelBuilder.Entity<ShoppingListItem>()
                .Property(s => s.ProductId)
@@ -78,10 +82,10 @@ namespace PsicopataPedidos.OrdersManagement.Persistence
                 .IsRequired();
 
             modelBuilder.Entity<Order>()
-                .HasKey("Id");
+                .HasKey(o => o.Id);
 
             modelBuilder.Entity<Order>()
-                .Property("Total")
+                .Property(o => o.Total)
                 .HasColumnType("decimal(19,4)");
 
             modelBuilder.Entity<Order>()

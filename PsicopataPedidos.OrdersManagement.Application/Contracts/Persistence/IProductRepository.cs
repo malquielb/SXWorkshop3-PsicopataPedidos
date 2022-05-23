@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 
 namespace PsicopataPedidos.OrdersManagement.Application.Contracts.Persistence
 {
-    public interface IUserRepository
+    public interface IProductRepository : IBaseRepository<Product>
     {
-        Task<User> GetByIdAsync(int id);
-        Task<User> GetByEmailAsync(string email);
-        Task<User> UpdateAsync(User user);
-        Task<User> CreateAsync(User user);
-        Task<IReadOnlyCollection<User>> GetAllUsers();
     }
 }

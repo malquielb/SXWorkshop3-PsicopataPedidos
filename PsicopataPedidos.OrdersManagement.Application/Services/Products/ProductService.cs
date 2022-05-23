@@ -13,19 +13,26 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Products
 {
     public class ProductService : IProductService
     {
-        private readonly IBaseRepository<Product> _productRepository;
+        private readonly IProductRepository _productRepository;
         private readonly IBaseRepository<Category> _categoryRepository;
         private readonly IMapper _mapper;
+        private readonly ProductRequestDtoValidator _validator;
 
-        public ProductService(IBaseRepository<Product> productRepository, IBaseRepository<Category> categoryRepository, IMapper mapper)
+        public ProductService(IProductRepository productRepository, IBaseRepository<Category> categoryRepository, IMapper mapper)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
             _mapper = mapper;
+            _validator = new ProductRequestDtoValidator();
         }
 
         public async Task<ProductResponseDto> AddProduct(ProductRequestDto productRequest)
         {
+            var validationResult = await _validator.ValidateAsync(productRequest);
+
+            if (validationResult.Errors.Any())
+                throw new ValidationException(validationResult);
+
             var product = _mapper.Map<Product>(productRequest);
             product.Categories = new List<Category>();
 
@@ -74,6 +81,11 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Products
 
         public async Task<ProductResponseDto> UpdateProduct(int id, ProductRequestDto productRequest)
         {
+            var validationResult = await _validator.ValidateAsync(productRequest);
+
+            if (validationResult.Errors.Any())
+                throw new ValidationException(validationResult);
+
             var product = await _productRepository.GetByIdAsync(id);
 
             if (product == null)

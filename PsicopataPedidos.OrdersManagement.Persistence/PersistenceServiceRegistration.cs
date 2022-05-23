@@ -22,6 +22,8 @@ namespace PsicopataPedidos.OrdersManagement.Persistence
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IShoppingListRepository, ShoppingListRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             return services;
         }

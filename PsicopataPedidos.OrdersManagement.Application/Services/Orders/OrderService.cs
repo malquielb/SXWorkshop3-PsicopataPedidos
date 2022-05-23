@@ -15,13 +15,13 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Orders
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IShoppingListRepository _shoppingListRepository;
-        private readonly IBaseRepository<User> _userRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IBaseRepository<Product> _productRepository;
         private readonly IMapper _mapper;
         private readonly ILoggedInUserService _loggedInUserService;
 
         public OrderService(IOrderRepository orderRepository, IShoppingListRepository shoppingListRepository, 
-            IBaseRepository<User> userRepository, IBaseRepository<Product> productRepository, 
+            IUserRepository userRepository, IBaseRepository<Product> productRepository, 
             IMapper mapper, ILoggedInUserService loggedInUserService)
         {
             _orderRepository = orderRepository;
@@ -74,20 +74,19 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Orders
 
             foreach (var item in itemsToOrder)
             {
-                if (item.Product.Stock >= item.Quantity)
-                {
-                    order.Total += item.Product.Price * item.Quantity;
-                    item.Product.Stock -= item.Quantity;
-                    await _productRepository.UpdateAsync(item.Product);
-                }
-                else
-                {
+                if (item.Product.Stock < item.Quantity)
                     throw new ApplicationException($"{item.Product.Name} have not enought stock for your order.");
-                }
+
+                order.Total += item.Product.Price * item.Quantity;
+                item.Product.Stock -= item.Quantity;
             }
 
-            order.ShoppingList = itemsToOrder.ToList();
+            var user = await _userRepository.GetByIdAsync(_loggedInUserService.UserId);
 
+            if (order.Total > user.Wallet)
+                throw new ApplicationException("Have not enought money in your wallet.");
+
+            order.ShoppingList = itemsToOrder;
             order.Date = DateTimeOffset.Now;
 
             var result = await _orderRepository.AddAsync(order);
@@ -96,7 +95,11 @@ namespace PsicopataPedidos.OrdersManagement.Application.Services.Orders
             {
                 item.OrderId = result.Id;
                 await _shoppingListRepository.UpdateAsync(item);
+                await _productRepository.UpdateAsync(item.Product);
             }
+
+            user.Wallet -= result.Total;
+            await _userRepository.UpdateAsync(user);
 
             var response = _mapper.Map<OrderResponseDto>(result);
             response.UserName = _loggedInUserService.UserName;

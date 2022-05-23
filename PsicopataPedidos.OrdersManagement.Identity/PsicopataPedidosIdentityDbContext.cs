@@ -21,7 +21,7 @@ namespace PsicopataPedidos.OrdersManagement.Identity
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PsicopataPedidosIdentityDbContext).Assembly);
 
             modelBuilder.Entity<User>()
-                .HasKey("Id");
+                .HasKey(u => u.Id);
 
             modelBuilder.Entity<User>()
                 .Property(u => u.FirstName)

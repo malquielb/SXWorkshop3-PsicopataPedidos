@@ -25,6 +25,11 @@ namespace PsicopataPedidos.OrdersManagement.Identity.Repositories
             return user;
         }
 
+        public async Task<IReadOnlyCollection<User>> GetAllUsers()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
         public async Task<User> GetByEmailAsync(string email)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);

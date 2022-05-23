@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PsicopataPedidos.OrdersManagement.Application.Contracts.Persistence;
 using PsicopataPedidos.OrdersManagement.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PsicopataPedidos.OrdersManagement.Persistence.Repositories
 {
-    public class ProductRepository : BaseRepository<Product>
+    public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
         public ProductRepository(PsicopataPedidosDbContext context) : base(context)
         {
@@ -18,7 +19,6 @@ namespace PsicopataPedidos.OrdersManagement.Persistence.Repositories
         {
             return await _context.Set<Product>()
                 .Include(p => p.Categories)
-                .ThenInclude(c => c.Products)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
@@ -26,7 +26,6 @@ namespace PsicopataPedidos.OrdersManagement.Persistence.Repositories
         {
             return await _context.Set<Product>()
                 .Include(p => p.Categories)
-                .ThenInclude(c => c.Products)
                 .ToListAsync();
         }
     }
